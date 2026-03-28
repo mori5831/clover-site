@@ -1,0 +1,583 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLOVER</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: sans-serif;
+  padding-top: 80px;
+}
+
+/* ===== ナビ ===== */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  padding: 0 20px;
+  background: #74C0E3;
+  backdrop-filter: blur(10px);
+  color: white;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+}
+
+.nav-left a {
+  background: #b89b2d;
+  color: white;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.nav-center {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.nav-right {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+
+/* 閉じるボタン*/
+.close-btn{
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 30px;
+  cursor: pointer;
+  z-index: 10001;
+}
+
+/*===== メニューの中身 =====*/
+.menu-category{
+  margin-top: 40px;
+}
+
+.menu-category h3{
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+}
+
+.menu-grid p{
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dotted #ccc;
+  padding: 8px 0;
+}
+
+/* ===== トップ画像 ===== */
+.hero {
+  height: 60vh;
+  background: url("photo1.jpg") center/cover no-repeat;
+}
+
+/* ===== セクション ===== */
+.section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.menu-btn{
+  display: inline-block;
+  padding: 12px 25px;
+  border: 1px solid #aaa;
+  text-decoration: none;
+  color: #333;
+  margin-top: 20px;
+}
+
+/* ===== メニュー画面 =====*/
+.menu-box{
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 100%;
+  height: 100%;
+  background: white;
+  transition: 0.4s;
+  z-index: 10000;
+  overflow-y: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.menu-box.active{
+  transform: translateX(0);
+  right: 0;
+}
+
+
+
+/* ===== メニュー ===== */
+.menu-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 80px 10%;
+  background: #f7f3ef; 
+}
+
+/* 左の文章 */
+.menu-text {
+  max-width: 400px;
+  text-align: left;
+}
+
+.menu-text h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+.menu-text p {
+  line-height: 1.8;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+/* ボタン */
+.menu-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  border: 1px solid #aaa;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.menu-btn:hover {
+  background: #333;
+  color: white;
+}
+
+/* 右の画像 */
+.menu-img img {
+  width: 400px;
+  border-radius: 5px;
+}
+
+.menu-box.active {
+  right: 0%;
+}
+
+.concept-bg{
+  background: #f7f3ef;
+}
+
+.about{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  padding: 60px 20px;
+  background: #f7f3ef;
+}
+
+.white-bg {
+  background: white;
+}
+
+
+.about.reverse{
+  flex-direction: row-reverse;
+}
+
+.about-img img{
+  width: 300px;
+  border-radius: 10px;
+}
+
+.about-text{
+  max-width: 400px;
+  text-align: left;
+}
+
+.fade{
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 0.8s ease;
+}
+
+.fade.show{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media(max-width: 768px){
+  .about{
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media(max-width: 768px){
+  .menu-section{
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .menu-text{
+    text-align: center;
+  }
+
+  .menu-img img{
+    width: 100%;
+    margin-top: 200px;
+  }
+}
+
+/* 写真 */
+.section img {
+  width: 100%;
+  max-width: 500px;
+  display: block;
+  margin: 0 auto 20px;
+  border-radius: 15px;
+}
+
+/* テキスト */
+.text {
+  max-width: 500px;
+  margin: auto;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+/* 左右ズレ */
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+/* ===== 固定予約ボタン ===== */
+.fixed-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #e60023;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  font-weight: bold;
+}
+
+.menu-content{
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.footer{
+  padding: 40px 250px;
+  background: #74C0E3;
+  color: white;
+  text-align: center;
+  font-size: 12px;
+}
+
+/* ===== スマホ対応 ===== */
+@media (max-width: 768px){
+
+  /* セクション余白 */
+  .section{
+    padding: 30px 15px;
+  }
+
+  /* about（コンセプト・こだわり） */
+  .about{
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .about-text{
+    text-align: center;
+  }
+
+  .about-img img{
+    width: 100%;
+    max-width: 300px;
+  }
+
+  /* メニュー */
+  .menu-section{
+    flex-direction: column;
+    text-align: center;
+    padding: 50px 20px;
+  }
+
+  .menu-text{
+    text-align: center;
+  }
+
+  .menu-img img{
+    width: 100%;
+    max-width: 300px;
+    margin-top: 20px;
+  }
+
+  /* フッター */
+  .footer{
+    padding: 30px 20px;
+    font-size: 11px;
+  }
+
+  /* ナビ */
+  .navbar{
+    height: 70px;
+    padding: 0 15px;
+  }
+
+  .nav-center{
+    font-size: 16px;
+  }
+
+  /* メニュー画面 */
+  .menu-box{
+    padding: 20px 15px;
+  }
+
+  .menu-box h2{
+    margin-top: 50px;
+    font-size: 20px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- ナビ -->
+<div class="navbar">
+  <div class="nav-left">
+    <a href="https://beauty.hotpepper.jp/CSP/bt/reserve/?storeId=H000128687" target="_blank">
+      予約
+    </a>
+  </div>
+
+  <div class="nav-center">
+    CLOVER
+  </div>
+
+  <div class="nav-right" onclick="toggleMenu()">☰</div>
+</div>
+
+
+
+
+<!-- トップ -->
+ <div class="about fade">
+  <div class="about-img">
+    <img src="S__107413509_0.jpg">
+  </div>
+
+<div class="about-text">
+  <h2>Concepts</h2>
+  <p>
+    スタイリストと共に、あなたに幸せと笑顔を。<br>
+    美しいヘアスタイルをもっと手軽に楽しんでいただくために、
+    丁寧な施術を心がけています。
+  </p>
+</div>
+</div>
+
+<div class="about reverse fade white-bg">
+  <div class="about-img">
+    <img src="S__107413508_0.jpg">
+  </div>
+  <div class="about-text">
+    <h2>こだわり</h2>
+    <p>私たちは、お客様一人一人に寄り添った丁寧な接客を大切にしています。
+      しっかりとカウンセリングを行い、理想やお悩みに向き合いながら「本当に似合うスタイル」を
+      ご提案します。
+    </p>
+    </div>
+</div>
+
+<div>
+<div class="menu-section">
+  <h2>Menu.</h2>
+  <p>CLOVERは、お客様一人ひとりに寄り添い、<br>
+      高品質な施術を提供します。<br><br>
+      落ち着いた空間で、あなただけのスタイルを。
+    </p>
+
+  <a href="#" class="menu-btn" onclick="openMenu()">Menuを見る →</a>
+
+
+
+ <div class="menu-box" id="menu">
+
+    <span class="close-btn" onclick="closeMenu()">×</span>
+
+    <h2>Menu</h2>
+
+  <!-- カット -->
+  <div class="menu-category">
+    <h3>カット</h3>
+    <div class="menu-grid">
+      <p><span>前髪カット</span><span>¥510</span></p>
+      <p><span>幼児カット</span><span>¥1,830</span></p>
+      <p><span>小学生カット</span><span>¥2,580</span></p>
+      <p><span>中学生カット</span><span>¥2,880</span></p>
+      <p><span>高校生カット</span><span>¥3,580</span></p>
+      <p><span>大学生カット</span><span>¥3,990</span></p>
+      <p><span>一般カット</span><span>¥4,200</span></p>
+    </div>
+  </div>
+
+  <!-- カラー -->
+  <div class="menu-category">
+    <h3>カラー</h3>
+    <div class="menu-grid">
+      <p><span>リタッチカラー</span><span>¥5,190~</span></p>
+      <p><span>全体カラー</span><span>¥6,190~</span></p>
+      <p><span>全体ルフレカラー</span><span>¥7,190~</span></p>
+    </div>
+  </div>
+
+  <!-- パーマ -->
+  <div class="menu-category">
+    <h3>パーマ</h3>
+    <div class="menu-grid">
+      <p><span>ストレートパーマ</span><span>¥8,190~</span></p>
+      <p><span>コスメパーマ</span><span>¥9,190~</span></p>
+      <p><span>デジタルパーマ</span><span>¥12,290~</span></p>
+    </div>
+  </div>
+
+  <!-- トリートメント -->
+  <div class="menu-category">
+    <h3>トリートメントORヘッドスパ</h3>
+    <div class="menu-grid">
+      <p><span>頭皮改善クリームトリートメント</span><span>¥2,890~</span></p>
+      <p><span>グランドリンケージトリートメント</span><span>¥3,390~</span></p>
+    </div>
+  </div>
+
+  <div class="menu-category">
+    <h3>縮毛矯正</h3>
+    <div class="menu-grid">
+      <p><span>前髪縮毛矯正</span><span>¥3,690~</span></p>
+      <p><span>縮毛矯正</span><span>¥12,290~</span></p>
+    </div>
+  </div>
+
+  <!-- ミックス -->
+  <div class="menu-category">
+    <h3>ミックス</h3>
+    <div class="menu-grid">
+      <p><span>前髪カット＋前髪縮毛矯正</span><span>¥4,200~</span></p>
+      <p><span>カット＋クリームスパトリートメント</span><span>¥7,090</span></p>
+      <p><span>カット＋グランドリンケージトリートメント</span><span>¥7,590</span></p>
+      <p><span>カット＋前髪パーマ</span><span>¥7,890</span></p>
+      <p><span>カット＋前髪縮毛矯正</span><span>¥7,890</span></p>
+      <p><span>リタッチカラー＋グランドリンケージトリートメント</span><span>¥9,090</span></p>
+      <p><span>カット＋リタッチカラー</span><span>¥9,390</span></p>
+      <p><span>全体カラー＋グランドリンケージトリートメント</span><span>¥10,090</span></p>
+      <p><span>カット＋全体カラー</span><span>¥10,390</span></p>
+      <p><span>全体リフレカラー＋グランドリンケージトリートメント</span><span>¥11,090</span></p>
+      <p><span>カット＋全体ルフレカラー</span><span>¥11,390</span></p>
+      <p><span>カット＋ストレートパーマ</span><span>¥12,390</span></p>
+      <p><span>カット＋リタッチカラー＋トリートメント</span><span>¥12,780</span></p>
+      <p><span>カット＋全体カラー＋トリートメント</span><span>¥13,780</span></p>
+      <p><span>カット＋全体ルフレカラー＋トリートメント</span><span>¥14,780</span></p>
+      <p><span>カット＋コスメパーマ＋トリートメント</span><span>¥16,780</span></p>
+      <p><span>カット＋デジタルパーマ＋トリートメント</span><span>¥19,880</span></p>
+      <p><span>カット＋縮毛矯正＋トリートメント</span><span>¥19,880</span></p>
+      <p><span>カット＋リタッチ＋コスメパーマ＋トリートメント</span><span>¥21,970</span></p>
+      <p><span>カット＋リタッチ＋デジタルパーマ＋トリートメント</span><span>¥25,070</span></p>
+    </div>
+  </div>
+
+</div>
+
+<div class="menu-img">
+    <img src="S__107405321.jpg">
+  </div>
+</div>
+
+<div class="section fade">
+  <h2>営業時間</h2>
+  <div class="text">
+    <p>火～土 10:00〜19:00</p>
+    <p>日祝 10:00〜18:00</p>
+    <p>定休日：毎週月曜日</p>
+  </div>
+</div>
+
+<div class="section" style="background:#f7f3ef">
+  <h2>Recruit</h2>
+  <div class="text">
+    <p>CLOVERでは一緒に働くスタッフを募集しています</p>
+
+    <a href="https://jp.indeed.com/viewjob?from=appshareios&jk=351237b5dbb7db33" target="_blank" class="menu-btn">
+Indeedで応募する →
+</a>
+</div>
+</div>
+
+<footer class="footer">
+  <p>CLOVER</p>
+  <p>〒890-0046 鹿児島県鹿児島市西田3-1-3</p>
+  <p>TEL : 099-255-5157</p>
+  <p>営業時間：火～土 10:00~19:00 / 日祝 10:00~18:00 / 定休日 毎週月曜</p>
+  </footer>
+   
+<!-- メニューセクション -->
+ 
+  
+
+
+
+
+
+
+
+
+
+<script>
+function toggleMenu() {
+  document.getElementById("menu").classList.toggle("active");
+}
+function openMenu() {
+  document.getElementById("menu").classList.add("active");
+}
+
+function closeMenu() {
+  document.getElementById("menu").classList.remove("active");
+}
+
+/* ↓これ追加 */
+const fades = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll', () => {
+  fades.forEach(el => {
+    const rect = el.getBoundingClientRect().top;
+    const windowHeight = window.innerHeight;
+
+    if (rect < windowHeight - 100) {
+      el.classList.add('show');
+    }
+  });
+});
+</script>
+</body>
+</html>
